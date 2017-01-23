@@ -12,7 +12,7 @@ class Alien(Sprite):
         self.ai_settings = ai_settings
 
         # Load the alien image and set its rect attribute
-        self.image = pygame.image.load("images/1.bmp")
+        self.image = pygame.image.load("images/alien1.bmp")
         self.image = pygame.transform.scale(self.image,
                                             (self.ai_settings.alien_width,
                                                 self.ai_settings.alien_width))
