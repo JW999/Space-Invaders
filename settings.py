@@ -9,9 +9,13 @@ class Settings():
         self.bg_color = (141, 144, 146)
 
         # Ship settings
+        self.ship_height = 50
+        self.ship_width = 50
         self.ship_speed_factor = 1.5
 
         # Alien settings
+        self.alien_height = 50
+        self.alien_width = 50
         self.alien_speed_factor = 1
         self.fleet_drop_speed = 10
         self.fleet_direction = 1

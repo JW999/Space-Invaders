@@ -9,11 +9,13 @@ class Alien(Sprite):
         """Initialize the alien and set its starting position"""
         super().__init__()
         self.screen = screen
-        self.ai_Settings = ai_settings
+        self.ai_settings = ai_settings
 
         # Load the alien image and set its rect attribute
         self.image = pygame.image.load("images/1.bmp")
-        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.image = pygame.transform.scale(self.image,
+                                            (self.ai_settings.alien_width,
+                                                self.ai_settings.alien_width))
         self.rect = self.image.get_rect()
 
         # Start each new alien near the top of the left of the screen
@@ -29,8 +31,8 @@ class Alien(Sprite):
 
     def update(self):
         """Move the alien to the right"""
-        self.x += (self.ai_Settings.alien_speed_factor *
-                   self.ai_Settings.fleet_direction)
+        self.x += (self.ai_settings.alien_speed_factor *
+                   self.ai_settings.fleet_direction)
         self.rect.x = self.x
 
     def check_edges(self):
