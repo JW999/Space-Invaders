@@ -8,9 +8,15 @@ To play the game, run spaceInvaders.py. Use the arrow keys to move the ship, spa
 This tutorial is based upon a pygame tutorial found in a book called "Python crash course". 
 
 TO DO list:
-1. Add a scoring system.
-2. Add a "play again" button.
-3. Add a starting screen(some sort of intro and a splash screen).
-4. Add new aliens.
-5. Allow the aliens to shoot.
-6. Add shelters for the ship.
+
+  1. Add a scoring system.
+
+  2. Add a "play again" button.
+
+  3. Add a starting screen(some sort of intro and a splash screen).
+
+  4. Add new aliens.
+
+  5. Allow the aliens to shoot.
+
+  6. Add shelters for the ship.
