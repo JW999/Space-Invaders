@@ -5,11 +5,11 @@
 
 To play the game, run spaceInvaders.py. Use the arrow keys to move the ship, space key to fire at aliens, and finally q to quit. Enjoy :)
 
-This tutorial is based upon a pygame tutorial found in a book called "Python crash course". 
+This tutorial is based upon a pygame tutorial found in a book called "Python crash course".
 
 TO DO list:
 
-  1. Add a scoring system.
+  1. Add a scoring system. CURRENTLY UNDER DEVELOPMENT
 
   2. Add a "play again" button.
 
