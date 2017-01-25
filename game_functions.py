@@ -27,17 +27,18 @@ def check_keyup_events(event, ship):
 
 
 def check_play_button(ai_settings, stats, screen, ship, aliens, bullets,
-                      play_button, replay_button, mouse_x, mouse_y):
+                      play_button, mouse_x, mouse_y):
     """Start a new game when the player click play."""
-    if play_button.rect.collidepoint(mouse_x, mouse_y) and play_button.button_active == True:
-        stats.game_active = True
-        stats.first_time = False
-        play_button.button_active = False
-    elif replay_button.rect.collidepoint(mouse_x, mouse_y) and replay_button.button_active == True:
-        reset_game(ai_settings, stats, screen, ship, aliens, bullets)
+    collide = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if collide and not stats.game_active:
+        if play_button.play:
+            play_button.play = False
+            stats.game_active = True
+        else:
+            reset_game(ai_settings, stats, screen, ship, aliens, bullets)
 
 
-def check_event(ai_settings, aliens, screen, stats, replay_button,
+def check_event(ai_settings, aliens, screen, stats,
                 play_button, ship, bullets):
     """ Watch for keyboard and mouse events"""
     for event in pygame.event.get():
@@ -50,12 +51,11 @@ def check_event(ai_settings, aliens, screen, stats, replay_button,
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(ai_settings, stats, screen, ship, aliens,
-                              bullets, play_button, replay_button, mouse_x,
-                              mouse_y)
+                              bullets, play_button, mouse_x, mouse_y)
 
 
 def update_screen(ai_settings, screen, ship, alien, bullets, stats,
-                  play_button, replay_button):
+                  play_button):
     """Redraw the screen durin each pass through the loop"""
     screen.fill(ai_settings.bg_color)
     ship.blitme()
@@ -65,10 +65,9 @@ def update_screen(ai_settings, screen, ship, alien, bullets, stats,
     alien.draw(screen)
 
     # Draw the play button if the game is inactive:
-    if not stats.game_active and stats.first_time:
+    if not stats.game_active:
         play_button.draw_button()
-    if not stats.game_active and not stats.first_time:
-        replay_button.draw_button()
+
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()
@@ -134,18 +133,18 @@ def create_fleet(ai_settings, screen, ship, aliens):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
 
-def update_aliens(ai_settings, replay_button, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, play_button, stats, screen, ship, aliens, bullets):
     """Check if aliens are at the edges, and then update the fleet"""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
     # Look for alien-ship collisions.
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, replay_button, stats,
+        ship_hit(ai_settings, play_button, stats,
                  screen, ship, aliens, bullets)
 
     # Look for aliens hitting the bottom of the screen.
-    check_aliens_bottom(ai_settings, replay_button, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, bullets)
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -174,7 +173,7 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
         create_fleet(ai_settings, screen, ship, aliens)
 
 
-def ship_hit(ai_settings, replay_button, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, play_button, stats, screen, ship, aliens, bullets):
     """Respond to ship being hit by alien"""
     # Decrement ships left(lives).
     if stats.ships_left > 0:
@@ -193,16 +192,16 @@ def ship_hit(ai_settings, replay_button, stats, screen, ship, aliens, bullets):
     else:
         stats.game_active = False
         stats.game_ended = True
-        replay_button.button_active = True
+        play_button.play = False
 
 
-def check_aliens_bottom(ai_settings, replay_button, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, bullets):
     """Check if any aliens have reached the bottom of the screen."""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
             # Treat this the same as if the ship got hit
-            ship_hit(ai_settings, replay_button, stats,
+            ship_hit(ai_settings, play_button, stats,
                      screen, ship, aliens, bullets)
             break
 

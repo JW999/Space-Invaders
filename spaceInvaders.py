@@ -28,22 +28,21 @@ def run_game():
     stats = GameStats(ai_settings)
 
     # Make the play button.
-    play_button = Button(screen, "Play")
-    replay_button = Button(screen, "Replay", False)
+    play_button = Button(screen)
 
     # Start the main loop for the game.
     while True:
         gf.check_event(ai_settings, aliens, screen, stats, play_button,
-                       replay_button, ship, bullets)
+                       ship, bullets)
 
         if stats.game_active:
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, replay_button, stats,
+            gf.update_aliens(ai_settings, play_button, stats,
                              screen, ship, aliens, bullets)
 
         gf.update_screen(ai_settings, screen, ship,
-                         aliens, bullets, stats, play_button, replay_button)
+                         aliens, bullets, stats, play_button)
 
 
 run_game()
