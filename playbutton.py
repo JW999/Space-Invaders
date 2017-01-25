@@ -3,7 +3,7 @@ import pygame.font
 
 class Button():
 
-    def __init__(self, screen, msg, active=True):
+    def __init__(self, screen,):
         """Initialize utton attributes"""
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -18,14 +18,15 @@ class Button():
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
 
-        # The button message need to be prepped only once.
-        self.prep_msg(msg)
+        # Used ti switch between "play" and "play again"
+        self.play = True
 
-        # Makes sure that the button is active
-        self.button_active = active
-
-    def prep_msg(self, msg):
+    def prep_msg(self):
         """Turn msg intop a rendered image and center text on the button."""
+        if self.play:
+            msg = "Play"
+        else:
+            msg = "play again"
         self.msg_image = self.font.render(
             msg, True, self.text_color, self.button_color)
         self.msg_image_rect = self.msg_image.get_rect()
@@ -33,5 +34,6 @@ class Button():
 
     def draw_button(self):
         # Draw blank button and then draw message.
+        self.prep_msg()
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
