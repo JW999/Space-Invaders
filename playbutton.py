@@ -3,7 +3,7 @@ import pygame.font
 
 class Button():
 
-    def __init__(self, screen, msg):
+    def __init__(self, screen, msg, active=True):
         """Initialize utton attributes"""
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -20,6 +20,9 @@ class Button():
 
         # The button message need to be prepped only once.
         self.prep_msg(msg)
+
+        # Makes sure that the button is active
+        self.button_active = active
 
     def prep_msg(self, msg):
         """Turn msg intop a rendered image and center text on the button."""

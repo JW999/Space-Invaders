@@ -6,7 +6,8 @@ class GameStats():
         self.ai_settings = ai_settings
         self.reset_stats()
 
-        # Start the game in an active state.
+        # Initialize game state variables.
+        self.first_time = True
         self.game_active = False
 
     def reset_stats(self):
