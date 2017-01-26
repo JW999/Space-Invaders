@@ -55,7 +55,7 @@ def check_event(ai_settings, aliens, screen, stats,
                               bullets, play_button, mouse_x, mouse_y)
 
 
-def update_screen(ai_settings, screen, ship, alien, bullets, stats,
+def update_screen(ai_settings, screen, ship, alien, bullets, stats, sb,
                   play_button):
     """Redraw the screen durin each pass through the loop"""
     screen.fill(ai_settings.bg_color)
@@ -64,6 +64,9 @@ def update_screen(ai_settings, screen, ship, alien, bullets, stats,
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     alien.draw(screen)
+
+    # Draw the score information.
+    sb.show_score()
 
     # Draw the play button if the game is inactive:
     if not stats.game_active:

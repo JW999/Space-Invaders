@@ -1,7 +1,7 @@
 import pygame.font
 
 
-class scoreboard():
+class Scoreboard():
     """A class to report scoring information"""
 
     def __init__(self, ai_settings, screen, stats):
@@ -12,7 +12,7 @@ class scoreboard():
         self.stats = stats
 
         # Font settings for scoreing information
-        self.text_color(30, 30, 30)
+        self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
 
         # Prepare the initial score image.
@@ -26,7 +26,7 @@ class scoreboard():
 
         # Display the score at the top right screen of the screen
         self.score_rect = self.score_image.get_rect()
-        self.rect.right = self.screen_rect.right - 20
+        self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
 
     def show_score(self):
