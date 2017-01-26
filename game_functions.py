@@ -34,6 +34,7 @@ def check_play_button(ai_settings, stats, screen, ship, aliens, bullets,
         if play_button.play:
             play_button.play = False
             stats.game_active = True
+            pygame.mouse.set_visible(False)
         else:
             reset_game(ai_settings, stats, screen, ship, aliens, bullets)
 
@@ -193,6 +194,7 @@ def ship_hit(ai_settings, play_button, stats, screen, ship, aliens, bullets):
         stats.game_active = False
         stats.game_ended = True
         play_button.play = False
+        pygame.mouse.set_visible(True)
 
 
 def check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, bullets):
@@ -220,3 +222,4 @@ def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
 
     # Start the game
     stats.game_active = True
+    pygame.mouse.set_visible(False)
