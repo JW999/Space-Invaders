@@ -69,7 +69,6 @@ def update_screen(ai_settings, screen, ship, alien, bullets, stats,
     if not stats.game_active:
         play_button.draw_button()
 
-
     # Make the most recently drawn screen visible.
     pygame.display.flip()
 
@@ -145,7 +144,8 @@ def update_aliens(ai_settings, play_button, stats, screen, ship, aliens, bullets
                  screen, ship, aliens, bullets)
 
     # Look for aliens hitting the bottom of the screen.
-    check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, play_button, stats,
+                        screen, ship, aliens, bullets)
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -171,6 +171,7 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # Destroy  the existing bullets and create a new fleet.
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -209,8 +210,9 @@ def check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, b
 
 
 def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
-    # Reset game statistics
+    # Reset game various game elements
     stats.reset_stats()
+    ai_settings.initialize_dynamic_settings()
 
     # Empty the list of aliens and bullets.
     aliens.empty()
