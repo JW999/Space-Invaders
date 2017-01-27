@@ -167,6 +167,13 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
+def check_high_score(stats, sb):
+    """Check to see if there's a new high score"""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
+
+
 def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets,
                                  stats, sb):
     """Respond to bullet-alien collisions"""
@@ -176,7 +183,8 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets,
     if collisions:
         for alien in collisions.values():
             stats.score += ai_settings.alien_points * len(alien)
-        sb.prep_score()
+            sb.prep_score()
+        check_high_score(stats, sb)
 
     if len(aliens) == 0:
         # Destroy  the existing bullets and create a new fleet.
@@ -235,3 +243,9 @@ def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
     # Start the game
     stats.game_active = True
     pygame.mouse.set_visible(False)
+
+    def check_high_score(stats, sb):
+        """Check to see if there's a new high score"""
+        if stats.score > stats.high_score:
+            stats.high_score = stats.score
+            sb.prep_high_score

@@ -9,7 +9,7 @@ This tutorial is based upon a pygame tutorial found in a book called "Python cra
 
 TO DO list:
 
-  1. Add a scoring system. 
+  1. ~~Add a scoring system.~~
 
   2. ~~Add a "play again" button.~~
 
