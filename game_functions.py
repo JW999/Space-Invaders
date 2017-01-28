@@ -26,7 +26,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def check_play_button(ai_settings, stats, screen, ship, aliens, bullets,
+def check_play_button(ai_settings, sb, stats, screen, ship, aliens, bullets,
                       play_button, mouse_x, mouse_y):
     """Start a new game when the player click play."""
     collide = play_button.rect.collidepoint(mouse_x, mouse_y)
@@ -36,10 +36,10 @@ def check_play_button(ai_settings, stats, screen, ship, aliens, bullets,
             stats.game_active = True
             pygame.mouse.set_visible(False)
         else:
-            reset_game(ai_settings, stats, screen, ship, aliens, bullets)
+            reset_game(ai_settings, sb, stats, screen, ship, aliens, bullets)
 
 
-def check_event(ai_settings, aliens, screen, stats,
+def check_event(ai_settings, aliens, sb, screen, stats,
                 play_button, ship, bullets):
     """ Watch for keyboard and mouse events"""
     for event in pygame.event.get():
@@ -51,7 +51,7 @@ def check_event(ai_settings, aliens, screen, stats,
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, stats, screen, ship, aliens,
+            check_play_button(ai_settings, sb, stats, screen, ship, aliens,
                               bullets, play_button, mouse_x, mouse_y)
 
 
@@ -187,9 +187,14 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets,
         check_high_score(stats, sb)
 
     if len(aliens) == 0:
-        # Destroy  the existing bullets and create a new fleet.
+        # If the entire fleet is destroyed, start a new level.
         bullets.empty()
         ai_settings.increase_speed()
+
+        # Increase level
+        stats.level += 1
+        sb.prep_level()
+
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -227,7 +232,7 @@ def check_aliens_bottom(ai_settings, play_button, stats, screen, ship, aliens, b
             break
 
 
-def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
+def reset_game(ai_settings, sb, stats, screen, ship, aliens, bullets):
     # Reset game various game elements
     stats.reset_stats()
     ai_settings.initialize_dynamic_settings()
@@ -236,6 +241,12 @@ def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
     aliens.empty()
     bullets.empty()
 
+    # Reset the score
+    stats.level = 0
+    sb.prep_score()
+    sb.prep_level()
+    sb.prep_high_score()
+
     # Create a new fleet and center the ship
     create_fleet(ai_settings, screen, ship, aliens)
     ship.center_ship()
@@ -243,9 +254,3 @@ def reset_game(ai_settings, stats, screen, ship, aliens, bullets):
     # Start the game
     stats.game_active = True
     pygame.mouse.set_visible(False)
-
-    def check_high_score(stats, sb):
-        """Check to see if there's a new high score"""
-        if stats.score > stats.high_score:
-            stats.high_score = stats.score
-            sb.prep_high_score
