@@ -17,8 +17,8 @@ TO DO list:
 
   4. Add a starting screen(some sort of intro and a splash screen). **A play button has been added, splash screen will soon follow.**
 
-  5. Allow the aliens to shoot.
+  5. Allow aliens to shoot the ship.
 
   6. Add shelters for the ship.
 
-  7. Add a better texture for the ship and improve the game's colors.
+  7. Improve the game's overall look.
