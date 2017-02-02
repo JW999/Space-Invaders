@@ -151,12 +151,13 @@ def create_fleet(ai_settings, screen, ship, aliens):
 
 def aliens_fire(ai_settings, aliens, alien_bullets, ship, screen):
     """Aliens can fire bullets now"""
-    # There's a one in 3 in 10 chance that an alien will be able to shoot.
+    # There's a one in 4 in 10 chance that an alien will be able to shoot.
     # The number of aliens that will shoot is capped, to avoid unplayable
     # situations where the ship can't escape from the bullets falling down.
+    # Aliens will only shoot when they're above the ship.
     for alien in aliens:
-        if len(alien_bullets) <= ai_settings.alien_bullets_allowed:
-            if randint(1, 10) < 4:
+        if len(alien_bullets) < ai_settings.alien_bullets_allowed:
+            if randint(1, 10) < 5 and alien.rect.centerx == ship.rect.centerx:
                 # Create a bullet object(pew?)
                 new_bullet = Alien_bullet(ai_settings, screen, ship, alien)
                 alien_bullets.add(new_bullet)

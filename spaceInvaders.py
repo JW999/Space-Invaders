@@ -35,7 +35,7 @@ def run_game():
 
     # Initialize pygame clock to control the FPS of the game
     clock = pygame.time.Clock()
-    fps = 200
+    fps = 150
 
     # Start the main loop for the game.
     while True:
