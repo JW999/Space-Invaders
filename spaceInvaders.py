@@ -55,4 +55,5 @@ def run_game():
                          aliens, bullets, stats, sb, play_button)
 
 
-run_game()
+if __name__ == "__main__":
+    run_game()

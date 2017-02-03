@@ -236,6 +236,8 @@ def check_bullet_alien_collision(ai_settings, screen, ship, aliens, bullets,
 
 
 def check_bullet_bullet_collision(bullets, alien_bullets):
+    """Responds to bullet-bullet collisions by removing both bullets from
+        their sprite groups."""
     pygame.sprite.groupcollide(bullets, alien_bullets, True, True)
 
 
